@@ -1,4 +1,4 @@
-package guru.springframework.monolith;
+package guru.springframework.brewery.monolith;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package guru.springframework.monolith;
+package guru.springframework.brewery.monolith;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
