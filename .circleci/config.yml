@@ -40,6 +40,7 @@ jobs:
           command: mvn verify sonar:sonar
 
 workflows:
+  version: 2
   main:
     jobs:
       - build:
