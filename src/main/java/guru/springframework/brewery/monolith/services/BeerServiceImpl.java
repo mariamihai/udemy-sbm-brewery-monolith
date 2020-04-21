@@ -29,6 +29,8 @@ public class BeerServiceImpl implements BeerService {
     public BeerDto getBeerByName(String beerName) {
         Beer beer = beerRepository.findByBeerName(beerName);
 
+        if(beer == null) throw new NotFoundException();
+
         return beerMapper.beerToBeerDto(beer);
     }
 
@@ -59,8 +61,7 @@ public class BeerServiceImpl implements BeerService {
         beerRepository.deleteById(beerId);
     }
 
-    private Beer validatedBeerById(UUID beerId) {
+    protected Beer validatedBeerById(UUID beerId) {
         return beerRepository.findById(beerId).orElseThrow(NotFoundException::new);
     }
-
 }
