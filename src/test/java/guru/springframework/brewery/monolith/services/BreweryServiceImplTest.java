@@ -26,7 +26,7 @@ class BreweryServiceImplTest {
     private BreweryServiceImpl classUnderTest;
 
     @Test
-    void getAllBreweries() {
+    void test_getAllBreweries() {
         List<Brewery> givenBreweries = new ArrayList<>();
         when(breweryRepositoryMock.findAll()).thenReturn(givenBreweries);
 
@@ -36,7 +36,7 @@ class BreweryServiceImplTest {
     }
 
     @Test
-    void getBreweryById() {
+    void test_getBreweryById() {
         Brewery givenBrewery = Brewery.builder().build();
         Optional<Brewery> optionalBrewery = Optional.of(givenBrewery);
 
@@ -47,7 +47,7 @@ class BreweryServiceImplTest {
         assertEquals(givenBrewery, brewery);
     }
     @Test
-    void getBreweryByIdThrowException() {
+    void test_getBreweryById_throwsNotFoundException() {
         Optional<Brewery> optionalBrewery = Optional.empty();
         when(breweryRepositoryMock.findById(any())).thenReturn(optionalBrewery);
 
