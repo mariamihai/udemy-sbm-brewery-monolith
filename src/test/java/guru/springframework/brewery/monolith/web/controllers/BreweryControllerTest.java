@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static guru.springframework.brewery.monolith.config.WebConfig.BREWERY_PATH_V1;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -30,9 +31,6 @@ class BreweryControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
-
-    private final String PATH = "/api/v1/brewery";
-
     @Test
     void test_getAllBreweries() throws Exception {
         List<Brewery> givenBreweries = new ArrayList<>();
@@ -40,7 +38,7 @@ class BreweryControllerTest {
 
         when(breweryServiceMock.getAllBreweries()).thenReturn(givenBreweries);
 
-        mockMvc.perform(get(PATH))
+        mockMvc.perform(get(BREWERY_PATH_V1))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonBreweries));
     }
@@ -54,14 +52,14 @@ class BreweryControllerTest {
 
         when(breweryServiceMock.getBreweryById(id)).thenReturn(givenBrewery);
 
-        mockMvc.perform(get(PATH + "/" + id))
+        mockMvc.perform(get(BREWERY_PATH_V1 + "/" + id))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonBrewery));
     }
 
     @Test
     void test_getBreweryById_throwsBadRequest() throws Exception {
-        mockMvc.perform(get(PATH + "/random_text"))
+        mockMvc.perform(get(BREWERY_PATH_V1 + "/random_text"))
                 .andExpect(status().isBadRequest());
     }
 }
