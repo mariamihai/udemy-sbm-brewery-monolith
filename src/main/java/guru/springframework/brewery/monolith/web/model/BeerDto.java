@@ -1,6 +1,7 @@
 package guru.springframework.brewery.monolith.web.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class BeerDto extends BaseItem{
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal price;
 
+    @Builder
     public BeerDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
                    String beerName, BeerStyleEnum beerStyle, String upc,
                    Integer quantityOnHand, BigDecimal price) {
