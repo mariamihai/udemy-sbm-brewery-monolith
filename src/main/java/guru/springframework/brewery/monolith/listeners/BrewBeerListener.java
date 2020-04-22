@@ -6,7 +6,6 @@ import guru.springframework.brewery.monolith.events.BrewBeerEvent;
 import guru.springframework.brewery.monolith.repositories.BeerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,6 @@ import javax.transaction.Transactional;
 public class BrewBeerListener {
 
     private final BeerRepository beerRepository;
-    private final ApplicationEventPublisher publisher;
 
     @Async
     @EventListener
