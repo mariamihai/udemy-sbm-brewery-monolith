@@ -6,7 +6,7 @@ import guru.springframework.brewery.monolith.web.model.BeerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-public abstract class BeerMapperDecorator  implements BeerMapper {
+public abstract class BeerMapperDecorator implements BeerMapper {
 
     private BeerMapper beerMapper;
 

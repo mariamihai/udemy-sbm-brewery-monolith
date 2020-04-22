@@ -5,19 +5,16 @@ import guru.springframework.brewery.monolith.repositories.BeerRepository;
 import guru.springframework.brewery.monolith.web.controllers.NotFoundException;
 import guru.springframework.brewery.monolith.web.mappers.BeerMapper;
 import guru.springframework.brewery.monolith.web.model.BeerDto;
-import guru.springframework.brewery.monolith.web.model.BeerStyleEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
