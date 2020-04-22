@@ -2,13 +2,17 @@ package guru.springframework.brewery.monolith.bootstrap;
 
 import guru.springframework.brewery.monolith.domain.Beer;
 import guru.springframework.brewery.monolith.domain.Brewery;
+import guru.springframework.brewery.monolith.domain.Customer;
 import guru.springframework.brewery.monolith.repositories.BeerRepository;
 import guru.springframework.brewery.monolith.repositories.BreweryRepository;
+import guru.springframework.brewery.monolith.repositories.CustomerRepository;
 import guru.springframework.brewery.monolith.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Slf4j
 @Component
@@ -17,7 +21,9 @@ public class BreweryLoader implements CommandLineRunner {
 
     private final BreweryRepository breweryRepository;
     private final BeerRepository beerRepository;
+    private final CustomerRepository customerRepository;
 
+    public static final String TASTING_ROOM = "Tasting Room";
 
     private static final String BEER_1_UPC = "1234567890";
     private static final String BEER_2_UPC = "9087654321";
@@ -26,6 +32,7 @@ public class BreweryLoader implements CommandLineRunner {
     @Override
     public void run(String... args) {
         loadBreweryDate();
+        loadCustomerData();
     }
 
     private void loadBreweryDate() {
@@ -44,20 +51,29 @@ public class BreweryLoader implements CommandLineRunner {
                 .breweryName(breweryName)
                 .build());
 
-        log.info("Brewery '" + breweryName + "' was saved with id: " + savedBrewery.getId());
+        log.debug("Brewery '" + breweryName + "' was saved with id: " + savedBrewery.getId());
     }
 
     private void saveBeer(String beerName, BeerStyleEnum beerStyle, String upc) {
         Beer beer = Beer.builder()
                         .beerName(beerName)
                         .beerStyle(beerStyle)
-                        .minOnHand(12)
-                        .quantityToBrew(200)
+                        .minOnHand(200)
+                        .quantityToBrew(5)
                         .upc(upc)
                     .build();
 
         Beer savedBeer = beerRepository.save(beer);
 
-        log.info("Beer '" + beerName + "' was saved with id: " + savedBeer.getId());
+        log.debug("Beer '" + beerName + "' was saved with id: " + savedBeer.getId());
+    }
+
+    private void loadCustomerData() {
+        if (customerRepository.count() == 0) {
+            customerRepository.save(Customer.builder()
+                    .customerName(TASTING_ROOM)
+                    .apiKey(UUID.randomUUID())
+                    .build());
+        }
     }
 }
