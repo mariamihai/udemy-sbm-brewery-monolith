@@ -5,11 +5,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -21,7 +27,8 @@ public class Beer extends BaseEntity {
     @Builder
     public Beer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate,
                 String beerName, BeerStyleEnum beerStyle, String upc,
-                Integer minOnHand, Integer quantityToBrew, BigDecimal price) {
+                Integer minOnHand, Integer quantityToBrew, BigDecimal price,
+                Set<BeerInventory> beerInventory) {
         super(id, version, createdDate, lastModifiedDate);
 
         this.beerName = beerName;
@@ -30,6 +37,7 @@ public class Beer extends BaseEntity {
         this.minOnHand = minOnHand;
         this.quantityToBrew = quantityToBrew;
         this.price = price;
+        this.beerInventory = beerInventory;
     }
 
     private String beerName;
@@ -43,5 +51,7 @@ public class Beer extends BaseEntity {
     private Integer quantityToBrew;
     private BigDecimal price;
 
-    // TODO - add inventory
+    @OneToMany(mappedBy = "beer", cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
+    private Set<BeerInventory> beerInventory = new HashSet<>();
 }
